@@ -1,32 +1,32 @@
-enum Light {
-    Dull,
-    Bright,
+struct Temperature {
+    degree_f: f64,
 }
 
-fn main() {
-    let light = Light::Dull;
+impl Temperature {
+    fn show_temp(&self) {
+        println!("{} degrees F", self.degree_f);
+    }
 
-    // ! without borrowing
-    // display_light(light);
-    // display_light(light);
+    fn freezing() -> Self {
+        Self {
+            degree_f: 32.0,
+        }
+    }
 
-    // * with borrowing
-    display_light(&light);
-    display_light(&light);
-}
-
-// ! taking ownership the value
-fn display_light(light: &Light) {
-    match light {
-        Light::Dull => println!("Light is Dull"),
-        Light::Bright => println!("Light is bright"),
+    fn boiling() -> Self {
+        Self {
+            degree_f: 212.0,
+        }
     }
 }
 
-// * referencing the value
-// fn display_light(light: Light) {
-//     match light {
-//         Light::Dull => println!("Light is Dull"),
-//         Light::Bright => println!("Light is bright"),
-//     }
-// }
+fn main() {
+    let hot = Temperature { degree_f: 99.9 };
+    hot.show_temp();
+
+    let cold = Temperature::freezing();
+    cold.show_temp();
+
+    let boiling = Temperature::boiling();
+    boiling.show_temp();
+}
