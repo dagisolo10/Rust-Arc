@@ -1,11 +1,18 @@
-fn main() {
-    let my_num = 3;
+enum Access {
+    User,
+    Guest,
+    Admin,
+    Manager,
+}
 
-    // message is a string slice
-    let message: &str = match my_num {
-        1 => "hello",
-        _ => "good bye",
+fn main() {
+    let access_level = Access::Guest;
+
+    // only admin can access
+    let can_access_file = match access_level {
+        Access::Admin => true,
+        _ => false,
     };
 
-    println!("{}", message);
+    println!("can access file {}", can_access_file);
 }
