@@ -1,18 +1,32 @@
-enum Access {
-    User,
-    Guest,
-    Admin,
-    Manager,
+enum Light {
+    Dull,
+    Bright,
 }
 
 fn main() {
-    let access_level = Access::Guest;
+    let light = Light::Dull;
 
-    // only admin can access
-    let can_access_file = match access_level {
-        Access::Admin => true,
-        _ => false,
-    };
+    // ! without borrowing
+    // display_light(light);
+    // display_light(light);
 
-    println!("can access file {}", can_access_file);
+    // * with borrowing
+    display_light(&light);
+    display_light(&light);
 }
+
+// ! taking ownership the value
+fn display_light(light: &Light) {
+    match light {
+        Light::Dull => println!("Light is Dull"),
+        Light::Bright => println!("Light is bright"),
+    }
+}
+
+// * referencing the value
+// fn display_light(light: Light) {
+//     match light {
+//         Light::Dull => println!("Light is Dull"),
+//         Light::Bright => println!("Light is bright"),
+//     }
+// }
