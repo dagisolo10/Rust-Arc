@@ -1,6 +1,23 @@
 fn main() {
-    let life = 42;
+    let mut a = 0;
 
-    println!("{life:?} {life:?}");
-    println!("{life} {life}");
+    loop {
+        if a == 5 {
+            break;
+        }
+
+        println!("{a}");
+        a += 1;
+    }
+
+    println!("a end");
+
+    let mut b = 0;
+
+    while b != 5 {
+        println!("{b}");
+        b += 1;
+    }
+
+    println!("b end");
 }
