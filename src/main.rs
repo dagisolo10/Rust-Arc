@@ -1,21 +1,37 @@
-struct ShippingBox {
-    depth: i32,
-    width: i32,
-    height: i32,
+enum Flavor {
+    Sweet,
+    Fruity,
+    Sparkling,
+}
+
+struct Drink {
+    fluid_oz: f64,
+    flavor: Flavor,
 }
 
 fn main() {
-    let my_box = ShippingBox {
-        depth: 1,
-        width: 2,
-        height: 3,
-    };
+    print_drink(Drink {
+        fluid_oz: 6.0,
+        flavor: Flavor::Sweet,
+    });
 
-    let box_depth = my_box.depth; // 1
-    let box_width = my_box.width; // 2
-    let box_height = my_box.height; // 3
+    print_drink(Drink {
+        fluid_oz: 2.5,
+        flavor: Flavor::Sparkling,
+    });
 
-    println!("the box depth is {}", box_depth);
-    println!("the box width is {}", box_width);
-    println!("the box height is {}", box_height);
+    print_drink(Drink {
+        fluid_oz: 1.0,
+        flavor: Flavor::Fruity,
+    });
+}
+
+fn print_drink(drink: Drink) {
+    match drink.flavor {
+        Flavor::Sweet => println!("Flavor: Sweet"),
+        Flavor::Fruity => println!("Flavor: Fruity"),
+        Flavor::Sparkling => println!("Flavor: Sparkling"),
+    }
+
+    println!("oz: {}", drink.fluid_oz);
 }
