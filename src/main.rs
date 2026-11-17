@@ -1,15 +1,11 @@
 fn main() {
-    let (_x, y) = coordinates();
+    let my_num = 3;
 
-    if y > 5 {
-        println!("y is greater than 5")
-    } else if y < 5 {
-        println!("y is less than 5")
-    } else {
-        println!("y is 5")
-    }
-}
+    // message is a string slice
+    let message: &str = match my_num {
+        1 => "hello",
+        _ => "good bye",
+    };
 
-fn coordinates() -> (i32, i32) {
-    (1, 5)
+    println!("{}", message);
 }
