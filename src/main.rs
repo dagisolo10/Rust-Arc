@@ -1,23 +1,17 @@
 fn main() {
-    let mut a = 0;
+    let some_bool = false;
 
-    loop {
-        if a == 5 {
-            break;
-        }
-
-        println!("{a}");
-        a += 1;
+    match some_bool {
+        true => println!("TRUE"),
+        false => println!("FALSE"),
     }
 
-    println!("a end");
+    let some_int = 3;
 
-    let mut b = 0;
-
-    while b != 5 {
-        println!("{b}");
-        b += 1;
+    match some_int {
+        1 => println!("1"),
+        2 => println!("2"),
+        3 => println!("3"),
+        _ => println!("Something else"),
     }
-
-    println!("b end");
 }
