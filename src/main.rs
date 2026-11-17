@@ -1,24 +1,21 @@
-enum Direction {
-    Up,
-    Down,
-    Left,
-    Right,
+struct ShippingBox {
+    depth: i32,
+    width: i32,
+    height: i32,
 }
 
 fn main() {
-    let dir: Direction = Direction::Down;
+    let my_box = ShippingBox {
+        depth: 1,
+        width: 2,
+        height: 3,
+    };
 
-    let go = which_way(&dir);
+    let box_depth = my_box.depth; // 1
+    let box_width = my_box.width; // 2
+    let box_height = my_box.height; // 3
 
-    println!("{go}");
-}
-
-// borrowing will be covered in future topics
-fn which_way(dir: &Direction) -> &str {
-    match dir {
-        Direction::Up => "Up",
-        Direction::Down => "Down",
-        Direction::Left => "Left",
-        Direction::Right => "Right",
-    }
+    println!("the box depth is {}", box_depth);
+    println!("the box width is {}", box_width);
+    println!("the box height is {}", box_height);
 }
