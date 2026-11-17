@@ -1,17 +1,24 @@
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
 fn main() {
-    let some_bool = false;
+    let dir: Direction = Direction::Down;
 
-    match some_bool {
-        true => println!("TRUE"),
-        false => println!("FALSE"),
-    }
+    let go = which_way(&dir);
 
-    let some_int = 3;
+    println!("{go}");
+}
 
-    match some_int {
-        1 => println!("1"),
-        2 => println!("2"),
-        3 => println!("3"),
-        _ => println!("Something else"),
+// borrowing will be covered in future topics
+fn which_way(dir: &Direction) -> &str {
+    match dir {
+        Direction::Up => "Up",
+        Direction::Down => "Down",
+        Direction::Left => "Left",
+        Direction::Right => "Right",
     }
 }
