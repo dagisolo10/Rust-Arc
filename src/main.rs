@@ -1,21 +1,15 @@
-#[derive(Debug)]
-enum Access {
-    Full,
-}
-
 fn main() {
-    let numbers = one_two_three();
-    let (x, y, z) = one_two_three();
+    let (_x, y) = coordinates();
 
-    println!("{}, {}", x, numbers.0);
-    println!("{}, {}", y, numbers.1);
-    println!("{}, {}", z, numbers.2);
-
-    let (name, access) = ("Jake", Access::Full);
-
-    println!("{} has {:?} access", name, access);
+    if y > 5 {
+        println!("y is greater than 5")
+    } else if y < 5 {
+        println!("y is less than 5")
+    } else {
+        println!("y is 5")
+    }
 }
 
-fn one_two_three() -> (i32, i32, i32) {
-    (1, 2, 3)
+fn coordinates() -> (i32, i32) {
+    (1, 5)
 }
