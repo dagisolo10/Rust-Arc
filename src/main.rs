@@ -1,37 +1,21 @@
-enum Flavor {
-    Sweet,
-    Fruity,
-    Sparkling,
-}
-
-struct Drink {
-    fluid_oz: f64,
-    flavor: Flavor,
+#[derive(Debug)]
+enum Access {
+    Full,
 }
 
 fn main() {
-    print_drink(Drink {
-        fluid_oz: 6.0,
-        flavor: Flavor::Sweet,
-    });
+    let numbers = one_two_three();
+    let (x, y, z) = one_two_three();
 
-    print_drink(Drink {
-        fluid_oz: 2.5,
-        flavor: Flavor::Sparkling,
-    });
+    println!("{}, {}", x, numbers.0);
+    println!("{}, {}", y, numbers.1);
+    println!("{}, {}", z, numbers.2);
 
-    print_drink(Drink {
-        fluid_oz: 1.0,
-        flavor: Flavor::Fruity,
-    });
+    let (name, access) = ("Jake", Access::Full);
+
+    println!("{} has {:?} access", name, access);
 }
 
-fn print_drink(drink: Drink) {
-    match drink.flavor {
-        Flavor::Sweet => println!("Flavor: Sweet"),
-        Flavor::Fruity => println!("Flavor: Fruity"),
-        Flavor::Sparkling => println!("Flavor: Sparkling"),
-    }
-
-    println!("oz: {}", drink.fluid_oz);
+fn one_two_three() -> (i32, i32, i32) {
+    (1, 2, 3)
 }
