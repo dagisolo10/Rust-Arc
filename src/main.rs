@@ -1,5 +1,3 @@
-use jayson::eat_at_restaurant;
-
 fn main() {
-    eat_at_restaurant();
+    println!("✅ Day-03");
 }
