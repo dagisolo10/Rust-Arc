@@ -1,10 +1,5 @@
+use jayson::eat_at_restaurant;
+
 fn main() {
-    let age = 22;
-    let mut name = "Ayakashi";
-
-    println!("Name before {}", name);
-
-    name = "Bob";
-
-    println!("Name after {}, {}", name, age);
+    eat_at_restaurant();
 }
