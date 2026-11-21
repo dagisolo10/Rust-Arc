@@ -1,3 +1,12 @@
+use std::fs::File;
+
 fn main() {
-    println!("Error handling")
+    let file = File::open("hello.txt");
+
+    let file = match file {
+        Ok(file) => file,
+        Err(error) => panic!("Problem opening the file: {:?}", error),
+    };
+
+    println!("File: {:?}", file);
 }
