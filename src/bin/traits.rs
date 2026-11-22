@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 pub struct NewsArticle {
     pub author: String,
     pub content: String,
@@ -33,6 +35,28 @@ impl Summary for Tweet {
     }
 }
 
+// accepts anything that implements the summary trait
+// and calls summary
+pub fn notify(item: &impl Summary) {
+    println!("Breaking News! {}", item.summarize())
+}
+
+// longer version of notify
+pub fn notify_<T: Summary>(item: &T) {
+    println!("Breaking News! {}", item.summarize())
+}
+
+// this will have 2 summary types
+pub fn notify2(item1: &impl Summary, item2: &impl Summary) {
+    // ...
+}
+
+// this will have 1 type only which is summary
+// we can also add more traits using '+'
+pub fn notify_2<T: Summary + Display>(item1: &T, item2: &T) {
+    // ...
+}
+
 fn main() {
     let article = NewsArticle {
         headline: String::from("Penguins win the Stanley Cup Championship!"),
@@ -52,4 +76,6 @@ fn main() {
 
     println!("New TWEET: {}", post.summarize());
     println!("New ARTICLE: {}", article.summarize());
+
+    notify(&article);
 }
