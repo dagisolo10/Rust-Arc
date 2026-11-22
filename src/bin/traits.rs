@@ -52,7 +52,7 @@ pub fn notify2(_item1: &impl Summary, _item2: &impl Summary) {
 }
 
 // this will have 1 type only which is summary
-// we can also add more traits using '+'
+// we can also add more traits using '+' which is called trait bounds
 pub fn notify_2<T: Summary + Display>(_item1: &T, _item2: &T) {
     // ...
 }
@@ -81,6 +81,28 @@ pub fn returns_summerizable() -> impl Summary {
     }
 }
 
+struct Pair<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self { x, y }
+    }
+}
+
+// only works for type which implement Display and PartialOrd
+impl<T: Display + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest number is x = {}", self.x);
+        } else {
+            println!("The largest number is y = {}", self.y);
+        }
+    }
+}
+
 fn main() {
     let article = NewsArticle {
         headline: String::from("Penguins win the Stanley Cup Championship!"),
@@ -104,4 +126,8 @@ fn main() {
     notify(&article);
 
     println!("{}", returns_summerizable().summarize());
+
+    let pair = Pair::new(1, 2);
+
+    pair.cmp_display();
 }
