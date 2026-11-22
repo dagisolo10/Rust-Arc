@@ -1,30 +1,27 @@
-struct Point<T> {
+#[derive(Debug)]
+struct Point<T, U> {
     x: T,
-    y: T,
+    y: U,
 }
 
-// works for any type
-impl<T> Point<T> {
-    fn x(&self) -> &T {
-        &self.x
-    }
-}
-
-// only works for point y of type f64
-impl Point<f64> {
-    fn y(&self) -> &f64 {
-        &self.y
+impl<T, U> Point<T, U> {
+    fn mix_up<V, W>(self, other: Point<V, W>) -> Point<T, W> {
+        Point {
+            x: self.x,
+            y: other.y,
+        }
     }
 }
 
 fn main() {
-    let p1 = Point { x: 1, y: 2 };
-    // only x function is available
-    println!("x: {}", p1.x());
+    let pt1 = Point { x: 1, y: 2 };
+    let pt2 = Point {
+        x: "hello",
+        y: 10.4,
+    };
 
-    let p2 = Point { x: 5.0, y: 10.0 };
-    // both x and y are available
-    println!("y: {}", p2.y());
+    let pt3 = pt2.mix_up(pt1);
 
-    // let p3 = Point { x: 3, y: 6.0 };
+    println!("pt3.x = {}", pt3.x);
+    println!("pt3.y = {}", pt3.y);
 }
