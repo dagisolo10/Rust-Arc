@@ -71,6 +71,16 @@ where
     // ...
 }
 
+// return any type that implements the Summary
+pub fn returns_summerizable() -> impl Summary {
+    Tweet {
+        reply: false,
+        retweet: false,
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+    }
+}
+
 fn main() {
     let article = NewsArticle {
         headline: String::from("Penguins win the Stanley Cup Championship!"),
@@ -92,4 +102,6 @@ fn main() {
     println!("New ARTICLE: {}", article.summarize());
 
     notify(&article);
+
+    println!("{}", returns_summerizable().summarize());
 }
