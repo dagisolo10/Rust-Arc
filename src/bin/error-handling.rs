@@ -1,5 +1,5 @@
 use std::{
-    fs::File,
+    fs::{self, File},
     io::{self, Read},
 };
 
@@ -10,10 +10,5 @@ fn main() {
 }
 
 fn read_content_from_file(path: &str) -> Result<String, io::Error> {
-    let mut s = String::new();
-
-    // if it opens, read file, if one fails, return error
-    File::open(path)?.read_to_string(&mut s)?;
-
-    Ok(s)
+    fs::read_to_string(path)
 }
