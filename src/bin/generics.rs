@@ -1,20 +1,30 @@
-fn main() {
-    let largest = get_largest(vec![4, 5, 23, 64, 2356, 346]);
-    println!("The largest number is {}", largest);
-
-    let largest = get_largest(vec!['z', 'g', 'l', 's', 'f', 'u', 'i', 'o']);
-    println!("The largest number is {}", largest);
+struct Point<T> {
+    x: T,
+    y: T,
 }
 
-fn get_largest<T: PartialOrd + Copy>(list: Vec<T>) -> T {
-    let mut largest = list[0];
-
-    for item in list {
-        // or item > largest, both work
-        if item.gt(&largest) {
-            largest = item
-        }
+// works for any type
+impl<T> Point<T> {
+    fn x(&self) -> &T {
+        &self.x
     }
+}
 
-    largest
+// only works for point y of type f64
+impl Point<f64> {
+    fn y(&self) -> &f64 {
+        &self.y
+    }
+}
+
+fn main() {
+    let p1 = Point { x: 1, y: 2 };
+    // only x function is available
+    println!("x: {}", p1.x());
+
+    let p2 = Point { x: 5.0, y: 10.0 };
+    // both x and y are available
+    println!("y: {}", p2.y());
+
+    // let p3 = Point { x: 3, y: 6.0 };
 }
