@@ -21,5 +21,20 @@ fn main() {
         },
     };
 
+    /*
+       - This uses closure which will be covered in chapter 10
+       - this is like the catch callback in TS where it gives us
+       the error and a call back which in this case is called
+       'anonymous function'
+    */
+    let file = File::open(path).unwrap_or_else(|error| {
+        if error.kind() == ErrorKind::NotFound {
+            File::create(path)
+                .unwrap_or_else(|error| panic!("Problem creating the file: {:?}", error))
+        } else {
+            panic!("Problem opening the file: {:?}", error)
+        }
+    });
+
     println!("File: {:?}", file);
 }
