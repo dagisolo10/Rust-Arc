@@ -36,5 +36,14 @@ fn main() {
         }
     });
 
+    // This is the same as the original match expression
+    // if it succeeds, it will return the value
+    // else it will panic
+    let file = File::open(path).unwrap();
+
+    // same as unwrap, we just pass in the error message
+    // for the panic
+    let file = File::open(path).expect("Failed to open hello.txt");
+
     println!("File: {:?}", file);
 }
