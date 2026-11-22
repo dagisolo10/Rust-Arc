@@ -1,4 +1,4 @@
-use std::fmt::Display;
+use std::fmt::{Debug, Display};
 
 pub struct NewsArticle {
     pub author: String,
@@ -47,13 +47,27 @@ pub fn notify_<T: Summary>(item: &T) {
 }
 
 // this will have 2 summary types
-pub fn notify2(item1: &impl Summary, item2: &impl Summary) {
+pub fn notify2(_item1: &impl Summary, _item2: &impl Summary) {
     // ...
 }
 
 // this will have 1 type only which is summary
 // we can also add more traits using '+'
-pub fn notify_2<T: Summary + Display>(item1: &T, item2: &T) {
+pub fn notify_2<T: Summary + Display>(_item1: &T, _item2: &T) {
+    // ...
+}
+
+pub fn some_fn<T: Display + Clone, U: Clone + Debug>(_t: &T, _u: &U) {
+    // ...
+}
+
+// define the traits for the generics using 'where' after the return type
+// its more readable than a long text before the arg
+pub fn some_fn_<T, U>(_t: &T, _u: &U)
+where
+    T: Display + Clone,
+    U: Clone + Debug,
+{
     // ...
 }
 
