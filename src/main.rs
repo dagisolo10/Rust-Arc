@@ -1,3 +1,3 @@
 fn main() {
-    println!("✅ Day-05");
+    println!("✅ Day-06");
 }
