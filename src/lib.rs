@@ -26,14 +26,15 @@ impl Config {
                 continue;
             }
 
-            if path.is_none() {
-                path = Some(arg.trim().to_string().clone());
-            } else if query.is_none() {
-                query = Some(arg.trim().to_string().clone());
+            if query.is_none() {
+                query = Some(arg.trim().to_string());
+            } else if path.is_none() {
+                path = Some(arg.trim().to_string());
             }
         }
 
-        let case_insensitive = flags.contains(&"-i") || env::var("CASE_INSENSITIVE").is_ok();
+        let ignore_case = flags.contains(&"-i") || flags.contains(&"--ignore-case");
+        let case_insensitive = ignore_case || env::var("CASE_INSENSITIVE").is_ok();
 
         // ok_or returns a result so using '?', exit if its Err
         let path = path.ok_or("Missing file path")?;
@@ -45,6 +46,25 @@ impl Config {
             case_insensitive,
         })
     }
+}
+
+pub fn print_help() {
+    println!(
+        "\
+minigrep - A simple command-line text search tool inspired by grep
+
+USAGE:
+    minigrep <QUERY> <FILE> [OPTIONS]
+
+OPTIONS can appear anywhere.
+
+OPTIONS:
+    -h, --help           Print help information
+    -i, --ignore-case    Perform case-insensitive search
+
+ENVIRONMENT:
+    CASE_INSENSITIVE     Enable case-insensitive search"
+    );
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {

@@ -4,6 +4,11 @@ use std::process;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
+    if args.iter().any(|arg| arg == "--help" || arg == "-h") {
+        rust_arc::print_help();
+        return;
+    }
+
     let config = rust_arc::Config::new(&args).unwrap_or_else(|err| {
         eprintln!("Problem parsing arguments: {}", err);
         process::exit(1)
