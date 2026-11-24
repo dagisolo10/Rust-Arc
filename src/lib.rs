@@ -2,6 +2,7 @@ use std::env;
 use std::error::Error;
 use std::fs;
 
+#[derive(Debug)]
 pub struct Config {
     pub path: String,
     pub query: String,
@@ -9,14 +10,34 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Config, String> {
+    pub fn new(args: &Vec<String>) -> Result<Config, String> {
         if args.len() < 3 {
             return Err(format!("Expected 2 args, got {}", args.len() - 1));
         }
 
-        let path = args[2].clone();
-        let query = args[1].clone();
-        let case_insensitive = env::var("CASE_INSENSITIVE").is_err(); // i am thinking if a flag -i
+        let mut path: Option<String> = None;
+        let mut query: Option<String> = None;
+
+        let mut flags: Vec<&str> = Vec::new();
+
+        for arg in args.iter().skip(1) {
+            if arg.starts_with("-") {
+                flags.push(arg.trim());
+                continue;
+            }
+
+            if path.is_none() {
+                path = Some(arg.trim().to_string().clone());
+            } else if query.is_none() {
+                query = Some(arg.trim().to_string().clone());
+            }
+        }
+
+        let case_insensitive = flags.contains(&"-i") || env::var("CASE_INSENSITIVE").is_ok();
+
+        // ok_or returns a result so using '?', exit if its Err
+        let path = path.ok_or("Missing file path")?;
+        let query = query.ok_or("Missing search query")?;
 
         Ok(Config {
             path,
