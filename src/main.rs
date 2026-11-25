@@ -1,13 +1,18 @@
-use rust_arc::{Config, run};
+use rust_arc;
 use std::{env, process};
 
 fn main() {
-    let args = env::args();
+    let args: Vec<String> = env::args().collect();
 
-    let config = Config::new(args).unwrap_or_else(|error| {
+    if args.iter().any(|arg| arg == "--help" || arg == "-h") {
+        rust_arc::print_help();
+        return;
+    }
+
+    let config = rust_arc::Config::new(&args).unwrap_or_else(|error| {
         eprintln!("Failed to parse config {}", error);
         process::exit(1);
     });
 
-    run(config);
+    rust_arc::run(config);
 }

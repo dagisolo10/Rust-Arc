@@ -1,6 +1,5 @@
 use std::{
     collections::HashMap,
-    env::Args,
     fs::{self, read_to_string},
 };
 
@@ -15,9 +14,7 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: Args) -> Result<Config, &'static str> {
-        let args: Vec<String> = args.collect();
-
+    pub fn new(args: &Vec<String>) -> Result<Config, &'static str> {
         let query = args.get(1).ok_or("Missing query argument")?.clone();
         let directory = args.get(2).ok_or("Missing directory argument")?.clone();
 
@@ -29,6 +26,9 @@ impl Config {
         while index < args.len() {
             match args[index].as_str() {
                 "-i" => {
+                    case_insensitive = true;
+                }
+                "--ignore-case" => {
                     case_insensitive = true;
                 }
                 "-s" => {
@@ -51,6 +51,37 @@ impl Config {
             case_insensitive,
         })
     }
+}
+
+pub fn print_help() {
+    println!(
+        "
+rg - A lightweight recursive file search tool inspired by ripgrep
+
+USAGE:
+    rg <QUERY> <DIRECTORY> [OPTIONS]
+
+ARGUMENTS:
+    <QUERY>       Text to search for
+    <DIRECTORY>   Root directory to recursively search
+
+OPTIONS:
+    -h, --help           Print help information
+    -i, --ignore-case    Perform case-insensitive search
+    -s <FOLDERS>         Skip specified folders during traversal
+                         Separate multiple folder names with '|'
+
+EXAMPLES:
+    rg Rust ./src
+    rg Rust ./src -i
+    rg Rust ./src -s \"target|node_modules\"
+    rg Rust ./src -i -s \"target|node_modules\"
+
+NOTES:
+    - Options can appear in any order.
+    - Folder exclusions match directory names.
+    - Search includes nested directories by default."
+    );
 }
 
 pub fn run(config: Config) {
